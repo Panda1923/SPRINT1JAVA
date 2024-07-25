@@ -103,19 +103,18 @@ const data = {
 let contenedor = document.getElementById("contenedor")
 
 for (let i = 0; i < data.events.length; i++) {
-    let card = document.createElement("div");
-    card.className = "card col-lg-3 col-md-6 mb-4";
-    card.innerHTML = `
-                    <img src="${data.events[i].image}" class="card-img-top h-50" alt=""${data.events[i].name}">
-                    <div class="card-body">
-                        <h5 class="card-title">${data.events[i].name}</h5>
-                        <p class="card-text">${data.events[i].description}</p>
-                        <p>${data.events[i].price}</p>
-                        <a href="./details.html" class="btn btn-primary">Details</a>
-                    </div>
-                    `
-    console.log(card);
-    contenedor.appendChild(card)
-
+  let card = document.createElement("div");
+  card.className = "card col-4 p-2";
+  card.innerHTML = `
+                  <img src="${data.events[i].image}" class="card-img-top rounded-4 img-fluid" alt=""${data.events[i].name}">
+                  <div class="card-body">
+                      <h5 class="card-title">${data.events[i].name}</h5>
+                      <p class="card-text">${data.events[i].description}</p>
+                      <p>${data.events[i].price}</p>
+                      <a href="./details.html" class="btn btn-primary">Details</a>
+                  </div>
+                  `
+  console.log(card);
+  contenedor.appendChild(card)
 }
 

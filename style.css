@@ -3,22 +3,27 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    font-family: Arial, sans-serif;
 }
 .navbar{
     background-color: rgb(250, 175, 210);
 }
-.footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.carousel-item img {
+    max-height: 400px;
+    object-fit: cover;
+}
+footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
     background-color: rgb(250, 175, 210);
 }
-
-.social-icon {
+.form-check {
+    margin-bottom: 10px;
+  }
+  .social-icon {
     margin: 0 10px;
-    font-size: 24px;
-    color: #000;
-}
+    color: #333;
+  }
 
 .social-icon:hover {
     color: #007bff;
@@ -28,6 +33,7 @@ body {
     object-fit: cover;
 }
 .card-img-top{
-    height: 300px;
+    height: 200px;
+    width: 15rem;
     object-fit: cover;
 }
