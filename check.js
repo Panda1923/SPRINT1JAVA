@@ -228,17 +228,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const searchText = searchInput.value.toLowerCase().trim();
         const selectedCategories = Array.from(categoryContainer.querySelectorAll("input[type=checkbox]:checked"))
                                         .map(checkbox => checkbox.value);
-  
+                                        
         const filteredEvents = data.events.filter(event => {
             const matchesSearch = event.name.toLowerCase().includes(searchText) || 
                                   event.description.toLowerCase().includes(searchText);
             const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(event.category);
             return matchesSearch && matchesCategory;
         });
-  
         displayEvents(filteredEvents);
     }
-  
     function displayEvents(events) {
       const eventContainer = document.getElementById("contenedor");
       eventContainer.innerHTML = "";
@@ -247,7 +245,6 @@ document.addEventListener("DOMContentLoaded", () => {
           eventContainer.innerHTML = "<p>We did not find events According to your search.</p>";
           return;
       }
-  
       events.forEach(event => {
           const card = document.createElement("div");
           card.classList.add("card", "col-4", "p-2");
@@ -261,7 +258,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   <a href="./details.html?eventId=${event._id}" class="btn btn-primary">Details</a>
               </div>
           `;
-  
           card.addEventListener("click", () => {
             window.location.href = `details.html?eventId=${event._id}`;
           });
