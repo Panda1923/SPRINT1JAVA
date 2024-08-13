@@ -34,6 +34,16 @@ footer {
 }
 .card-img-top{
     height: 200px;
-    width: 15rem;
+    width: 100v;
     object-fit: cover;
 }
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 30%;
+  }
+  .btn {
+    align-self: flex-end;
+  }
