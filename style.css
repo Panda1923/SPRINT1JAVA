@@ -4,6 +4,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-family: Arial, sans-serif;
+    overflow-x: hidden;
 }
 .navbar{
     background-color: rgb(250, 175, 210);
