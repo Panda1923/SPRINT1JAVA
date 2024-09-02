@@ -1,0 +1,145 @@
+body {
+  background: linear-gradient(90deg, #aa688c, #e3e6e9, #DC3545);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.navbar {
+  background: linear-gradient(90deg,  #0a0a0a, #e3e6e9 );
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .nav-link {
+  color: #fff;
+  margin-right: 15px;
+  transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+  color: #1d1aec;
+}
+
+.carousel-item img {
+  max-height: 400px;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  filter: brightness(80%);
+  transition: filter 0.3s ease;
+}
+
+.carousel-item img:hover {
+  filter: brightness(100%);
+}
+
+.carousel-inner {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-check {
+  margin-bottom: 10px;
+}
+
+.social-icon {
+  margin: 0 10px;
+  color: #333;
+}
+
+.social-icon:hover {
+  color: #007bff;
+}
+
+.card-img-top {
+    height: 250px;
+    object-fit: cover;
+    width: 100%;
+    }
+
+.card-body {
+  background: linear-gradient(90deg,  #f1eeee, #e2a8d6 );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.btn {
+  align-self: flex-end;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 16px rgba(1, 0, 0, 2);
+}
+
+.card .btn {
+  background-color: #1d1aec;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.card .btn:hover {
+  background-color: #07c210;
+}
+
+footer {
+  background: linear-gradient(90deg,  #0a0a0a, #e3e6e9 );
+  color: #0f0f0f;
+  padding: 20px 0;
+}
+
+footer .social-icon {
+  color: #141414;
+  margin: 0 15px;
+}
+
+footer .social-icon:hover {
+  color: #fff;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.table-stats {
+  width: 100%;
+  margin-top: 20px;
+}
+.table-stats thead th {
+  background-color: #9e0a8a;
+  color: rgb(248, 246, 246);
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.table-stats tbody td:first-child {
+  font-weight: bold;
+  text-align: left;
+}
+
+.table-stats tbody {
+  border-bottom: 2px solid #ff0000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .table-stats {
+      font-size: 12px;
+  }
+  .table-stats thead th, .table-stats tbody td {
+      padding: 8px;
+  }
+}
