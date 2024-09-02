@@ -133,80 +133,75 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
- // campo Upcoming events statistics by category
- document.addEventListener("DOMContentLoaded", () => {
+// Campo Upcoming events statistics by category
+document.addEventListener("DOMContentLoaded", () => {
   const upcomingStatsBody = document.getElementById("upcoming-stats-body");
 
   if (upcomingStatsBody) {
-      fetchEvents().then(events => {
-          const currentDate = new Date("2023-03-10");
+    fetchEvents()
+      .then((events) => {
+        const currentDate = new Date("2023-03-10");
 
-          // Filtrar eventos futuros
-          const upcomingEvents = events.filter(event => new Date(event.date) >= currentDate);
+        // Filtrar eventos futuros
+        const upcomingEvents = events.filter(
+          (event) => new Date(event.date) >= currentDate
+        );
 
-          if (upcomingEvents.length > 0) {
-              const categories = {};
+        if (upcomingEvents.length > 0) {
+          // Agrupar eventos por categoría
+          const categoryStats = upcomingEvents.reduce((acc, event) => {
+            if (!acc[event.category]) {
+              acc[event.category] = {
+                revenue: 0,
+                totalCapacity: 0,
+                totalEstimate: 0,
+              };
+            }
+            acc[event.category].revenue += event.price * (event.estimate || 0);
+            acc[event.category].totalCapacity += event.capacity;
+            acc[event.category].totalEstimate += event.estimate || 0;
 
-              upcomingEvents.forEach(event => {
-                  if (!categories[event.category]) {
-                      categories[event.category] = {
-                          totalRevenue: 0,
-                          totalAssistance: 0,
-                          totalCapacity: 0
-                      };
-                  }
+            return acc;
+          }, {});
 
-                  // Usar 'estimate' si 'assistance' no está disponible
-                  const assistance = event.assistance || event.estimate || 0;
-                  const price = event.price || 0;
-                  const capacity = event.capacity || 0;
+          // Calcular el porcentaje de asistencia estimada por categoría y organizar de mayor a menor
+          const sortedCategoryStats = Object.entries(categoryStats)
+            .map(([category, stats]) => {
+              const percentageOfEstimate =
+                (stats.totalEstimate / stats.totalCapacity) * 100;
+              return {
+                category,
+                revenue: stats.revenue,
+                percentageOfEstimate: percentageOfEstimate.toFixed(2),
+              };
+            })
+            .sort(
+              (a, b) => b.percentageOfEstimate - a.percentageOfEstimate
+            );
 
-                  // Calcular ingresos y asistencia para cada categoría
-                  categories[event.category].totalRevenue += assistance * price;
-                  categories[event.category].totalAssistance += assistance;
-                  categories[event.category].totalCapacity += capacity;
-              });
-
-              // Convertir categorías a array y calcular el porcentaje de asistencia
-              const categoryStats = Object.keys(categories).map(category => {
-                  const totalCapacity = categories[category].totalCapacity;
-                  const assistancePercentage = totalCapacity ? (categories[category].totalAssistance / totalCapacity) * 100 : 0;
-
-                  return {
-                      category: category,
-                      totalRevenue: categories[category].totalRevenue,
-                      assistancePercentage: assistancePercentage
-                  };
-              });
-
-              // Ordenar categorías por porcentaje de asistencia de mayor a menor
-              categoryStats.sort((a, b) => b.assistancePercentage - a.assistancePercentage);
-
-              // Actualizar la tabla con los resultados
-              categoryStats.forEach(stat => {
-                  const row = document.createElement("tr");
-
-                  const categoryTd = document.createElement("td");
-                  categoryTd.textContent = stat.category;
-
-                  const revenueTd = document.createElement("td");
-                  revenueTd.textContent = `$${stat.totalRevenue.toFixed(2)}`;
-
-                  const percentageTd = document.createElement("td");
-                  percentageTd.textContent = `${stat.assistancePercentage.toFixed(2)}%`;
-
-                  row.appendChild(categoryTd);
-                  row.appendChild(revenueTd);
-                  row.appendChild(percentageTd);
-
-                  upcomingStatsBody.appendChild(row);
-              });
-          }
-      }).catch(error => {
-          console.error("Error al calcular las estadísticas de eventos futuros:", error);
+          // Actualizar la tabla 
+          upcomingStatsBody.innerHTML = sortedCategoryStats
+            .map(
+              (stat) => `
+                    <tr>
+                        <td>${stat.category}</td>
+                        <td>$${stat.revenue.toFixed(2)}</td>
+                        <td>${stat.percentageOfEstimate}%</td>
+                    </tr>
+                `
+            )
+            .join("");
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "Error al calcular las estadísticas por categoría:",
+          error
+        );
       });
   }
 });
+
 
 // campo Past events statistics by category
 document.addEventListener("DOMContentLoaded", () => {
@@ -229,7 +224,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             totalAssistance: 0
                         };
                     }
-
                     acc[event.category].revenue += event.price * (event.assistance || 0);
                     acc[event.category].totalCapacity += event.capacity;
                     acc[event.category].totalAssistance += event.assistance || 0;
@@ -249,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
                     .sort((a, b) => b.percentageOfAssistance - a.percentageOfAssistance);
 
-                // Actualizar la tabla con los resultados
+                // Actualizar la tabla 
                 pastStatsBody.innerHTML = sortedCategoryStats.map(stat => `
                     <tr>
                         <td>${stat.category}</td>
